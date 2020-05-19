@@ -28,7 +28,7 @@ public class ConfigSwaggerConfig extends WebMvcConfigurationSupport {
         .securitySchemes(Lists.newArrayList(schemeList))
         .select()
         .apis(RequestHandlerSelectors
-            .basePackage("com.lethanh98.controller"))
+            .basePackage("lethanh98.controller"))
         .paths(PathSelectors.any())
         .build().apiInfo(metaData());
   }
