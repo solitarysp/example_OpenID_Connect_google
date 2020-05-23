@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class LoginGoogleResponseDto {
+public class OpenIdTestResponseDto {
     @JsonProperty("access_token")
     private String accessToken;
 

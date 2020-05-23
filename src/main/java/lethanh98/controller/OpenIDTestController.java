@@ -2,7 +2,7 @@ package lethanh98.controller;
 
 import lethanh98.config.teamplate.RestAll;
 import lethanh98.dto.request.LoginGoogleRequestDto;
-import lethanh98.dto.response.LoginGoogleResponseDto;
+import lethanh98.dto.response.OpenIdTestResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -18,18 +18,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/OIDC")
-public class LoginGoogleController {
+public class OpenIDTestController {
     @Autowired
     RestAll restAll;
 
     @GetMapping("/getInfoUser")
-    public LoginGoogleResponseDto get(@RequestParam(value = "token") String token) {
+    public OpenIdTestResponseDto get(@RequestParam(value = "token") String token) {
 
 
-        LoginGoogleResponseDto loginGoogleResponseDto = new LoginGoogleResponseDto();
-        loginGoogleResponseDto.setAccessToken(token);
-        loginGoogleResponseDto.getUrl().put("Lấy thông tin user", "https://openidconnect.googleapis.com/v1/userinfo?access_token=" + loginGoogleResponseDto.getAccessToken());
-        return loginGoogleResponseDto;
+        OpenIdTestResponseDto openIdTestResponseDto = new OpenIdTestResponseDto();
+        openIdTestResponseDto.setAccessToken(token);
+        openIdTestResponseDto.getUrl().put("Lấy thông tin user", "https://openidconnect.googleapis.com/v1/userinfo?access_token=" + openIdTestResponseDto.getAccessToken());
+        return openIdTestResponseDto;
     }
 
     @GetMapping("/getToken")
@@ -51,7 +51,7 @@ public class LoginGoogleController {
     }
 
     @GetMapping("/login_google")
-    public LoginGoogleResponseDto getLoginGooogle(@RequestParam("code") String code) {
+    public OpenIdTestResponseDto getLoginGooogle(@RequestParam("code") String code) {
         LoginGoogleRequestDto checkRequestDto = LoginGoogleRequestDto.builder()
                 .code(code)
                 .clientId("601662646531-aaja6d30rsh2b6mt4nm7f2dovnm7pup0.apps.googleusercontent.com")
@@ -61,11 +61,11 @@ public class LoginGoogleController {
                 .build();
         HttpEntity<LoginGoogleRequestDto> requestEntityRemit = new HttpEntity<>(checkRequestDto);
 
-        ResponseEntity<LoginGoogleResponseDto> response = restAll.restTemplate().exchange("https://oauth2.googleapis.com/token", HttpMethod.POST, requestEntityRemit, new ParameterizedTypeReference<LoginGoogleResponseDto>() {
+        ResponseEntity<OpenIdTestResponseDto> response = restAll.restTemplate().exchange("https://oauth2.googleapis.com/token", HttpMethod.POST, requestEntityRemit, new ParameterizedTypeReference<OpenIdTestResponseDto>() {
         });
-        LoginGoogleResponseDto loginGoogleResponseDto = response.getBody();
-        loginGoogleResponseDto.getUrl().put("Lấy thông tin user", "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + loginGoogleResponseDto.getAccessToken());
-        return loginGoogleResponseDto;
+        OpenIdTestResponseDto openIdTestResponseDto = response.getBody();
+        openIdTestResponseDto.getUrl().put("Lấy thông tin user", "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + openIdTestResponseDto.getAccessToken());
+        return openIdTestResponseDto;
     }
     @GetMapping("Info")
     public Map<String, String> login() {
